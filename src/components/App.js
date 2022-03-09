@@ -15,6 +15,16 @@ class App extends React.Component {
     }
   }
 
+  findPets = () => {
+    const type = this.state.filters.type;
+    const fetchURL = type === "all" ? "/api/pets" : `/api/pets?type=${type}`;
+    return fetch(fetchURL, (response) => {
+      response.json();
+    }).then((petsJson) => {
+      this.setState({ pets: petsJson });
+    });
+  };
+
   render() {
     return (
       <div className="ui container">
